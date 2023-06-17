@@ -31,10 +31,10 @@ ________________________________________________________________________________
 
 variable "tenants" {
   description = <<-EOT
-    application_profiles:
-      application_epgs: List of application_epgs with vlans, like ["EPG1,1", "EPG11,11"].
-      name: Name of the Application Profile.
-    name: Name of the Tenant.
+    * application_profiles:
+      - application_epgs: List of application_epgs with vlans, like ["EPG1,1", "EPG11,11"].
+      - name: Name of the Application Profile.
+    * name: Name of the Tenant.
   EOT
   type = list(object(
     {
