@@ -1,5 +1,50 @@
 /*_____________________________________________________________________________________________________________________
 
+ACI Provider Settings
+_______________________________________________________________________________________________________________________
+*/
+variable "apicHostname" {
+  default     = "apic.example.com"
+  description = "Cisco APIC Hostname"
+  type        = string
+}
+
+variable "apicPass" {
+  default     = "dummydummy"
+  description = "Password for User based Authentication."
+  sensitive   = true
+  type        = string
+}
+
+variable "apicUser" {
+  default     = "admin"
+  description = "Username for User based Authentication."
+  type        = string
+}
+
+variable "certName" {
+  default     = ""
+  description = "Cisco ACI Certificate Name for SSL Based Authentication"
+  sensitive   = true
+  type        = string
+}
+
+variable "privateKey" {
+  default     = ""
+  description = "Cisco ACI Private Key for SSL Based Authentication."
+  sensitive   = true
+  type        = string
+}
+
+variable "apic_version" {
+  default     = "5.2(4e)"
+  description = "The Version of ACI Running in the Environment."
+  type        = string
+}
+
+
+/*_____________________________________________________________________________________________________________________
+
 Access -> Global -> Attachable Access Entity Profiles
 _______________________________________________________________________________________________________________________
 */

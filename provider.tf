@@ -7,3 +7,12 @@ terraform {
     }
   }
 }
+
+provider "aci" {
+  cert_name   = var.certName
+  password    = var.apicPass
+  private_key = var.privateKey
+  url         = "https://${var.apicHostname}"
+  username    = var.apicUser
+  insecure    = true
+}
