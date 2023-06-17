@@ -31,7 +31,7 @@ A comprehensive example using this module is available here: https://github.com/
 
 | Name | Description |
 |------|-------------|
-| <a name="output_epgs"></a> [epgs](#output\_epgs) | n/a |
+| <a name="output_aaep_to_epgs"></a> [aaep\_to\_epgs](#output\_aaep\_to\_epgs) | Map of AAEP to EPG Settings. |
 ## Resources
 
 | Name | Type |
