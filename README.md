@@ -2,11 +2,11 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Developed by: Cisco](https://img.shields.io/badge/Developed%20by-Cisco-blue)](https://developer.cisco.com)
 
-# Terraform ACI - System Settings Module
+# Terraform ACI - AAEP to EPGs Module
 
-A Terraform module to configure ACI System Settings.
+A Terraform module to configure ACI Attachable Access Entity Profiles to EPG Mappings.
 
-This module is part of the Cisco [*Intersight as Code*](https://cisco.com/go/intersightascode) project. Its goal is to allow users to instantiate network fabrics in minutes using an easy to use, opinionated data model. It takes away the complexity of having to deal with references, dependencies or loops. By completely separating data (defining variables) from logic (infrastructure declaration), it allows the user to focus on describing the intended configuration while using a set of maintained and tested Terraform Modules without the need to understand the low-level Intersight object model.
+This module is part of the Cisco [*ACI as Code*](https://cisco.com/go/intersightascode) project. Its goal is to allow users to instantiate network fabrics in minutes using an easy to use, opinionated data model. It takes away the complexity of having to deal with references, dependencies or loops. By completely separating data (defining variables) from logic (infrastructure declaration), it allows the user to focus on describing the intended configuration while using a set of maintained and tested Terraform Modules without the need to understand the low-level Intersight object model.
 
 A comprehensive example using this module is available here: https://github.com/terraform-cisco-modules/easy-aci-complete
 
@@ -14,40 +14,27 @@ A comprehensive example using this module is available here: https://github.com/
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_aci"></a> [aci](#requirement\_aci) | >= 2.5.2 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.6 |
+| <a name="requirement_aci"></a> [aci](#requirement\_aci) | >= 2.6.1 |
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aci"></a> [aci](#provider\_aci) | >= 2.5.2 |
+| <a name="provider_aci"></a> [aci](#provider\_aci) | >= 2.6.1 |
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_model"></a> [model](#input\_model) | Model data. | `any` | n/a | yes |
-| <a name="input_annotation"></a> [annotation](#input\_annotation) | The Version of this Script. | `string` | `"orchestrator:terraform:easy-aci-v2.0"` | no |
-| <a name="input_annotations"></a> [annotations](#input\_annotations) | The Version of this Script. | <pre>list(object(<br>    {<br>      key   = string<br>      value = string<br>    }<br>  ))</pre> | <pre>[<br>  {<br>    "key": "orchestrator",<br>    "value": "terraform:easy-aci:v2.0"<br>  }<br>]</pre> | no |
-| <a name="input_apic_version"></a> [apic\_version](#input\_apic\_version) | The Version of ACI Running in the Environment. | `string` | `"5.2(4e)"` | no |
-| <a name="input_aes_passphrase"></a> [aes\_passphrase](#input\_aes\_passphrase) | Global AES Passphrase. | `string` | n/a | yes |
+| <a name="input_attachable_access_entity_profiles"></a> [attachable\_access\_entity\_profiles](#input\_attachable\_access\_entity\_profiles) | * access\_vlan: (optional) Access/Native VLAN ID.<br>* allowed\_vlans: List of VLAN's to Attach to the Attachable Access Entity Profile.<br>* instrumentation\_immediacy:  Instrumentation immediacy.<br>    - immediate <br>    - on-demand (default)<br>* name: Name of the Attachable Access Entity Profile. | <pre>list(object(<br>    {<br>      access_vlan               = optional(number, 1)<br>      allowed_vlans             = string<br>      instrumentation_immediacy = optional(string, "on-demand")<br>      name                      = string<br>    }<br>  ))</pre> | n/a | yes |
+| <a name="input_tenants"></a> [tenants](#input\_tenants) | application\_profiles:<br>  application\_epgs: List of application\_epgs with vlans, like ["EPG1,1", "EPG11,11"].<br>  name: Name of the Application Profile.<br>name: Name of the Tenant. | <pre>list(object(<br>    {<br>      application_profiles = list(object(<br>        {<br>          application_epgs = list(string)<br>          name             = string<br>        }<br>      ))<br>      name = string<br>    }<br>  ))</pre> | n/a | yes |
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_epgs"></a> [epgs](#output\_epgs) | n/a |
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aci_coop_policy.coop_group_policy](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/coop_policy) | resource |
-| [aci_encryption_key.global_aes_passphrase](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/encryption_key) | resource |
-| [aci_endpoint_controls.rouge_ep_control](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/endpoint_controls) | resource |
-| [aci_endpoint_ip_aging_profile.ip_aging](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/endpoint_ip_aging_profile) | resource |
-| [aci_isis_domain_policy.isis_policy](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/isis_domain_policy) | resource |
-| [aci_mgmt_preference.apic_connectivity_preference](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/mgmt_preference) | resource |
-| [aci_port_tracking.port_tracking](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/port_tracking) | resource |
-| [aci_rest_managed.bgp_autonomous_system_number](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
-| [aci_rest_managed.bgp_route_reflectors](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
-| [aci_rest_managed.ep_loop_protection](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
-| [aci_rest_managed.fabric_wide_settings](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
-| [aci_rest_managed.fabric_wide_settings_5_2_3](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
-| [aci_rest_managed.ptp_and_latency_measurement](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_epgs_using_function.epg_to_aaeps](https://registry.terraform.io/providers/ciscodevnet/aci/latest/docs/resources/epgs_using_function) | resource |
 <!-- END_TF_DOCS -->
