@@ -1,18 +1,16 @@
+#_______________________________________________________________________
+#
+# Terraform Required Parameters:
+#  - ACI Provider
+#    https://registry.terraform.io/providers/CiscoDevNet/aci/latest
+#_______________________________________________________________________
+
 terraform {
-  required_version = ">= 1.3.6"
   required_providers {
     aci = {
-      source  = "ciscodevnet/aci"
-      version = ">= 2.6.1"
+      source  = "CiscoDevNet/aci"
+      version = ">=2.13.0"
     }
   }
-}
-
-provider "aci" {
-  cert_name   = var.certName
-  password    = var.apicPass
-  private_key = var.privateKey
-  url         = "https://${var.apicHostname}"
-  username    = var.apicUser
-  insecure    = true
+  required_version = ">= 1.3.0"
 }
